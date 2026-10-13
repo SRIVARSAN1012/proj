@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.sqlite3
+*.db
+# Node
+node_modules/
+dist/
+.env
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+# IDE
+.vscode/
+# Generated artifacts
+backend/artifacts/*
+!backend/artifacts/.gitkeep
+# Local runtime state
+backend/data/uploads/
+backend/uploads/
+backend/rehab_twin.db
