@@ -47,6 +47,10 @@ docker compose up --build
 
 The compose setup exposes the UI on port 5173 and API docs on port 8000. Persisted database and X-ray upload data are local application data and should be protected accordingly.
 
+## Deploy a public demo on Render
+
+The repository includes a Render Blueprint for a static frontend and a Docker-based API. In Render, create a new Blueprint from this repository and deploy the `render.yaml` configuration. The free API service may spin down when idle, and its SQLite database and uploaded images are ephemeral and may be lost after restarts or redeploys. The public API has no login or access controls: use fictional demo data only, never identifiable patient information.
+
 ## Working workflows
 
 1. Select a seeded demo patient or register a fictional patient.

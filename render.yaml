@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: rehab-twin-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.backend
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: DEMO_MODE
+        value: "true"
+      - key: FRONTEND_ORIGINS
+        value: https://rehab-twin.onrender.com
+      - key: DB_URL
+        value: sqlite:///./rehab_twin.db
+      - key: MODEL_DIR
+        value: ./artifacts
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "12"
+
+  - type: web
+    name: rehab-twin
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://rehab-twin-api.onrender.com/api
