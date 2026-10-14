@@ -30,9 +30,9 @@ def generate_report(patient_id: int, db: Session = Depends(get_db)):
         Paragraph(f"Patient: {patient.full_name}", styles["Heading2"]),
         Paragraph(f"Age: {patient.age} | Sex: {patient.sex} | Fracture: {patient.fracture_type}", styles["BodyText"]),
         Paragraph(f"Anatomic site: {patient.anatomical_site} | Side: {patient.side}", styles["BodyText"]),
-        Paragraph("Clinical safety notice: This is a research prototype and not a certified medical device. It should not replace clinician judgment.", styles["BodyText"]),
+        Paragraph("This workflow is for local research review only and is not medical advice or a validated clinical tool. It must not guide diagnosis or treatment.", styles["BodyText"]),
         Spacer(1, 12),
-        Paragraph("This report is generated for demonstration purposes only. It must be reviewed by a licensed clinician before any clinical action.", styles["BodyText"]),
+        Paragraph("Do not upload identifiable patient data to an unsecured deployment.", styles["BodyText"]),
     ]
     doc.build(story)
     pdf_data = buffer.getvalue()

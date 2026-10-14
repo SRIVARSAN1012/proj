@@ -6,7 +6,7 @@ router = APIRouter(prefix="/api", tags=["health"])
 
 @router.get("/health")
 def health() -> dict:
-    return {"status": "ok", "service": "REHAB-TWIN", "demo_mode": True}
+    return {"status": "ok", "service": "REHAB-TWIN", "prototype_mode": True}
 
 @router.get("/model-status")
 def model_status_route() -> dict:

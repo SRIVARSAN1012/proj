@@ -10,5 +10,5 @@ This backend exposes the patient, assessment, prediction, and reporting APIs for
 
 ## Notes
 
-- Demo mode is enabled when no trained model artifacts are present.
-- Synthetic predictions are clearly marked and should not be treated as validated medical data.
+- Local research mode is enabled when no trained model artifacts are present.
+- Local predictions are clearly marked and should not be treated as validated medical data.

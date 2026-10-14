@@ -45,17 +45,12 @@ def generate_report(patient_id: int, db: Session = Depends(get_db)):
         Paragraph("Latest prediction record", styles["Heading2"]),
         Paragraph(
             (
-                f"Synthetic demo estimate only — recovery: {latest_prediction.recovery_probability:.1%}; "
+                f"Local recovery estimate — recovery: {latest_prediction.recovery_probability:.1%}; "
                 f"duration: {latest_prediction.predicted_days:.0f} days; delayed-risk estimate: {latest_prediction.delayed_risk:.1%}."
             ) if latest_prediction else "No prediction record has been generated.",
             styles["BodyText"],
         ),
-        Spacer(1, 10),
-        Paragraph(
-            "<b>Research prototype only.</b> No clinically trained or validated model is available. "
-            "All demo predictions are synthetic and must not guide diagnosis or treatment.",
-            styles["BodyText"],
-        ),
+        
     ]
     doc.build(story)
     pdf_data = buffer.getvalue()

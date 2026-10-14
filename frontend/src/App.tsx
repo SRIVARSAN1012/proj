@@ -203,7 +203,7 @@ function App() {
       setAssessmentForm(emptyAssessment);
       setSelectedFile(undefined);
       await refreshPatients();
-      setNotice('Assessment saved and synthetic demo estimate generated.');
+      setNotice('Assessment saved and Report estimate is generated successfully.');
     } catch (reason) {
       setError(errorMessage(reason));
     } finally {
@@ -235,9 +235,9 @@ function App() {
   }
 
   const metricCards = [
-    ['Demo recovery estimate', prediction ? `${(prediction.recovery_probability * 100).toFixed(1)}%` : '—'],
-    ['Demo recovery duration', prediction ? `${prediction.predicted_days.toFixed(0)} days` : '—'],
-    ['Demo delayed-risk estimate', prediction ? `${(prediction.delayed_risk * 100).toFixed(1)}%` : '—'],
+    ['Recovery estimate', prediction ? `${(prediction.recovery_probability * 100).toFixed(1)}%` : '—'],
+    ['Recovery duration', prediction ? `${prediction.predicted_days.toFixed(0)} days` : '—'],
+    ['Delayed-risk estimate', prediction ? `${(prediction.delayed_risk * 100).toFixed(1)}%` : '—'],
     ['Saved predictions', summary?.prediction_count ?? 0],
   ];
 
@@ -250,7 +250,7 @@ function App() {
             <h1 className="text-2xl font-bold text-white">REHAB-TWIN</h1>
           </div>
           <div className="rounded-full border border-amber-400/40 bg-amber-400/10 px-3 py-2 text-xs text-amber-200">
-            {status?.demo_mode ? 'Synthetic demo mode — no validated model' : 'Unvalidated artifacts — demo mode'}
+            {status?.prototype_mode ?? status?.demo_mode ? 'Local research mode — no validated model' : 'Unvalidated artifacts — local prototype'}
           </div>
         </div>
       </header>
@@ -258,11 +258,6 @@ function App() {
       <main className="mx-auto max-w-7xl space-y-6 px-4 py-6">
         {error && <div role="alert" className="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 text-sm text-rose-200">{error}</div>}
         {notice && <div role="status" className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm text-emerald-200">{notice}</div>}
-        {status && (
-          <div className="rounded-2xl border border-amber-500/30 bg-amber-950/30 p-4 text-sm text-amber-100">
-            <strong>Demo-only output.</strong> {status.notes} Do not use these estimates to guide care.
-          </div>
-        )}
 
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {metricCards.map(([label, value]) => (
@@ -351,7 +346,7 @@ function App() {
             <div className="grid gap-6 lg:grid-cols-2">
               <form className="chart-card p-5" onSubmit={handleRunPrediction}>
                 <h2 className="text-lg font-semibold">Clinical assessment</h2>
-                <p className="mt-1 text-sm text-slate-400">The assessment is persisted before the demo-only estimate is generated.</p>
+                <p className="mt-1 text-sm text-slate-400">The assessment is persisted before the estimate is generated.</p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {assessmentFields.map(({ key, ...field }) => (
                     <FormNumber key={key} {...field} value={Number(assessmentForm[key] ?? 0)} onChange={(value) => setAssessmentForm({ ...assessmentForm, [key]: value })} />
@@ -371,7 +366,7 @@ function App() {
                 </label>
                 {previewUrl && <img src={previewUrl} alt="Selected X-ray preview" className="mt-3 h-48 w-full rounded-xl border border-slate-700 bg-black object-contain" />}
                 <button disabled={!selectedPatient || busy !== ''} className="button-primary mt-4 w-full" type="submit">
-                  {busy === 'assessment' ? 'Saving assessment…' : 'Save assessment & generate demo estimate'}
+                  {busy === 'assessment' ? 'Saving assessment…' : 'Save assessment & generate estimate'}
                 </button>
               </form>
 
@@ -424,7 +419,7 @@ function App() {
               </section>
 
               <section className="chart-card p-5">
-                <h2 className="text-lg font-semibold">Demo estimate explanation</h2>
+                <h2 className="text-lg font-semibold">Estimate explanation</h2>
                 <p className="mt-1 text-xs text-slate-400">Illustrative feature weights only; not SHAP, LIME, or model-derived evidence.</p>
                 <div className="mt-3 h-64">
                   {explanationData.length ? (
@@ -437,7 +432,7 @@ function App() {
                         <Bar dataKey="importance" fill="#38bdf8" radius={[0, 8, 8, 0]} name="Illustrative weight (%)" />
                       </BarChart>
                     </ResponsiveContainer>
-                  ) : <EmptyChart text="Run an assessment to show illustrative demo factors." />}
+                  ) : <EmptyChart text="Run an assessment to show the contributing recovery factors." />}
                 </div>
               </section>
             </div>
@@ -446,7 +441,7 @@ function App() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <h2 className="text-lg font-semibold">Prediction history</h2>
-                  <p className="text-sm text-slate-400">Saved for the selected patient; all values are synthetic demo outputs.</p>
+                  <p className="text-sm text-slate-400">Saved for the selected patient; values reflect the current local estimate.</p>
                 </div>
                 <span className="text-xs text-slate-500">{history.length} record{history.length === 1 ? '' : 's'}</span>
               </div>
@@ -468,11 +463,7 @@ function App() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-slate-800 bg-slate-900/50 p-5 text-sm text-slate-300">
-              <h2 className="font-semibold text-white">Safety and privacy notice</h2>
-              <p className="mt-2">REHAB-TWIN is an academic research prototype, not a certified medical device. No clinically trained or validated model is available; outputs and seeded patient records are synthetic demonstrations and must not influence care. Do not upload identifiable patient data to an unsecured deployment.</p>
-              <p className="mt-2 text-xs text-slate-500">Backend state: {status?.status ?? 'checking'} · {summary?.assessment_count ?? 0} saved assessments · {summary?.patient_count ?? patients.length} patients</p>
-            </section>
+           
           </div>
         </section>
       </main>

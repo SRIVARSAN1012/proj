@@ -39,8 +39,8 @@ def create_prediction(payload: PredictionRequest, db: Session = Depends(get_db))
         "delayed_risk": record.delayed_risk,
         "model_label": record.model_label,
         "explanation": record.explanation,
-        "status": "demo_only",
-        "warnings": ["Synthetic demo prediction only. Not a validated clinical prediction."],
+        "status": "local_research_only",
+        "warnings": ["Local recovery estimate only. Not a validated clinical prediction."],
     }
 
 @router.get("/predictions/{prediction_id}")

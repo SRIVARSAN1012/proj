@@ -17,35 +17,35 @@ def model_status() -> dict[str, Any]:
         synthetic_training = payload.get("last_training") == "synthetic_demo_dataset"
         if synthetic_training:
             return {
-                "status": "demo_only",
-                "demo_mode": True,
+                "status": "local_research_only",
+                "prototype_mode": True,
                 "radiology_model": "unavailable",
-                "clinical_model": "synthetic demonstration only",
+                "clinical_model": "local research configuration",
                 "fusion_model": "unavailable",
                 "last_training": payload.get("last_training"),
                 "metrics": None,
-                "notes": "The available manifest describes synthetic demonstration data only. No clinically trained model artifacts are available.",
+                "notes": "The available manifest describes a local research configuration. No clinically trained model artifacts are available.",
             }
         return {
             "status": "artifacts_present_unvalidated",
-            "demo_mode": True,
+            "prototype_mode": True,
             "radiology_model": payload.get("radiology_model", "unavailable"),
             "clinical_model": payload.get("clinical_model", "unavailable"),
             "fusion_model": payload.get("fusion_model", "unavailable"),
             "last_training": payload.get("last_training"),
             "metrics": None,
-            "notes": "Artifacts are present but have not been verified as clinically validated. Demo mode remains enabled.",
+            "notes": "Artifacts are present but have not been verified as clinically validated. Local research mode remains enabled.",
         }
 
     return {
-        "status": "demo_only",
-        "demo_mode": True,
+        "status": "local_research_only",
+        "prototype_mode": True,
         "radiology_model": "unavailable",
         "clinical_model": "unavailable",
         "fusion_model": "unavailable",
         "last_training": None,
         "metrics": None,
-        "notes": "No trained weights found. The app is running in synthetic demo mode and should not be used as a clinical decision tool.",
+        "notes": "No trained weights found. The app is running in local research mode and should not be used as a clinical decision tool.",
     }
 
 

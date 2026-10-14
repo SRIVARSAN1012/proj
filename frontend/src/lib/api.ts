@@ -84,7 +84,8 @@ export function getXrayUrl(assessmentId: number) {
 
 export type ModelStatus = {
   status: string;
-  demo_mode: boolean;
+  prototype_mode?: boolean;
+  demo_mode?: boolean;
   radiology_model: string;
   clinical_model: string;
   fusion_model: string;
@@ -97,7 +98,8 @@ export type DashboardSummary = {
   patient_count: number;
   assessment_count: number;
   prediction_count: number;
-  demo_mode: boolean;
+  prototype_mode?: boolean;
+  demo_mode?: boolean;
   status: string;
   clinic_notice: string;
 };

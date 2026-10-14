@@ -15,7 +15,7 @@ def dashboard_summary(db: Session = Depends(get_db)):
         "patient_count": patient_count,
         "assessment_count": assessment_count,
         "prediction_count": active_predictions,
-        "demo_mode": True,
+        "prototype_mode": True,
         "status": "research_prototype",
-        "clinic_notice": "This dashboard is for research demonstration only and is not a medical device.",
+        "clinic_notice": "This dashboard is for local research review only and is not a medical device.",
     }

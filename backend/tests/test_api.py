@@ -77,9 +77,9 @@ def test_health_and_model_status_are_honest():
     response = client.get("/api/model-status")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["demo_mode"] is True
+    assert payload["prototype_mode"] is True
     assert payload["metrics"] is None
-    assert payload["status"] == "demo_only"
+    assert payload["status"] == "local_research_only"
 
 
 def test_complete_patient_assessment_prediction_followup_xray_and_report_workflow(monkeypatch, tmp_path):
@@ -135,7 +135,7 @@ def test_complete_patient_assessment_prediction_followup_xray_and_report_workflo
     prediction = prediction_response.json()
     assert prediction["recovery_probability"] > 0
     assert prediction["predicted_days"] > 0
-    assert prediction["status"] == "demo_only"
+    assert prediction["status"] == "local_research_only"
     assert prediction["warnings"]
 
     followup_response = client.post(

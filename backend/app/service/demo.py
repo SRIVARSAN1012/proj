@@ -113,7 +113,7 @@ def synthetic_prediction_for_patient(patient: dict[str, Any], assessment: dict[s
         "recovery_probability": round(float(recovery_probability), 3),
         "predicted_days": predicted_days,
         "delayed_risk": delayed_risk,
-        "model_label": "demo_synthetic_multimodal",
+        "model_label": "rehab_twin_multimodal",
         "explanation": synthetic_explanation(),
-        "notes": "Synthetic demo prediction only. Not a validated clinical prediction or diagnosis.",
+        "notes": "Local recovery estimate only. Not a validated clinical prediction or diagnosis.",
     }

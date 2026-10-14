@@ -29,4 +29,4 @@ app.include_router(api_router)
 
 @app.get("/")
 def root() -> dict:
-    return {"message": "REHAB-TWIN API is running", "status": "demo_mode"}
+    return {"message": "REHAB-TWIN API is running", "status": "prototype_mode", "prototype_mode": True}
