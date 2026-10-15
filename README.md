@@ -90,3 +90,4 @@ The tests use an isolated in-memory database and cover patient registration, val
 ## ML development boundary
 
 `backend/scripts/train_multimodal.py` and `backend/scripts/evaluate_models.py` demonstrate clinical tabular ML training/evaluation with generated synthetic labels. They do not train a radiology model, DenseNet121, SHAP/LIME explainers, Grad-CAM, or a clinically meaningful fusion model. Local artifacts are reported as research-only by the API. Real model support requires verified, appropriately licensed datasets, real outcome labels, trained artifacts, and independent clinical validation before those capabilities can be represented as available.
+# Lower_limb
